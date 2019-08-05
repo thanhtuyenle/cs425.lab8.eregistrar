@@ -6,6 +6,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -32,16 +33,19 @@ public class Student {
 
     private Double cgpa;
 
+    @NotNull(message = "*Enrollment Date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate enrollmentDate;
 
-
-    private Boolean isInternational;
+    @NotBlank(message = "Is International is required!")
+    @Column(name="isInternational", nullable = false)
+    private String isInternational;
 
     public Student(){
 
     }
-    public Student(@NotBlank(message = "*Student Number is required") String studentNumber, @NotBlank(message = "*First Name is required") String firstName, String middleName, @NotBlank(message = "*Last Name is required") String lastName, Double cgpa, LocalDate enrollmentDate, Boolean isInternational) {
+
+    public Student(@NotBlank(message = "*Student Number is required") String studentNumber, @NotBlank(message = "*First Name is required") String firstName, String middleName, @NotBlank(message = "*Last Name is required") String lastName, Double cgpa, @NotNull(message = "*Enrollment Date is required") LocalDate enrollmentDate, @NotBlank(message = "Is International is required!") String isInternational) {
         this.studentNumber = studentNumber;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -107,12 +111,12 @@ public class Student {
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Boolean isInternational() {
+    public String getIsInternational() {
         return isInternational;
     }
 
-    public void setInternational(Boolean international) {
-        isInternational = international;
+    public void setIsInternational(String isInternational) {
+        this.isInternational = isInternational;
     }
 
     @Override

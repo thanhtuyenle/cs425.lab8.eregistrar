@@ -104,24 +104,16 @@
                 </div>
             </div>
             <div class="row">
-                <!--                <div class="col-md-6">-->
-                <!--                    <div class="form-group">-->
-                <!--                        <label for="isInternational">Is International</label>-->
-                <!--                        <span th:if="${#fields.hasErrors('isInternational')}" th:errors="*{isInternational}"-->
-                <!--                              class="alert alert-danger"></span>-->
-                <!--                        <input id="isInternational" name="isInternational" type="text" class="form-control"-->
-                <!--                               th:value="${student.isInternational}">-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="col-md-6">-->
-                <!--                    <div class="form-group">-->
-                <!--                        <label for="isInternational">Is International</label>-->
-                <!--                        <select th:field="*{isInternational}">-->
-                <!--                            <option th:value="'Yes'" th:text="Yes"></option>-->
-                <!--                            <option th:value="'No'" th:text="No"></option>-->
-                <!--                        </select>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                <div class="col-md-6">
+                    <label for="isInternational">Is International Student?</label>
+                    <span th:if="${#fields.hasErrors('isInternational')}" th:errors="*{isInternational}"
+                          class="alert alert-danger"></span>
+                    <select name="isInternational" id="isInternational" class="form-control" required="required">
+                        <option value="">Select Yes or No</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
             </div>
             <div style="float:right;">
                 <a href="/eregistrar/student/list" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
