@@ -108,10 +108,15 @@
                     <label for="isInternational">Is International Student?</label>
                     <span th:if="${#fields.hasErrors('isInternational')}" th:errors="*{isInternational}"
                           class="alert alert-danger"></span>
-                    <select name="isInternational" id="isInternational" class="form-control" required="required">
+<!--                    <select name="isInternational" id="isInternational" class="form-control" required="required">-->
+<!--                        <option value="">Select Yes or No</option>-->
+<!--                        <option value="Yes">Yes</option>-->
+<!--                        <option value="No">No</option>-->
+<!--                    </select>-->
+                    <select th:field="*{isInternational}" id="isInternational" class="form-control" required="required">
                         <option value="">Select Yes or No</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                        <option th:value="'Yes'" th:text="Yes">Yes</option>
+                        <option th:value="'No'" th:text="No">No</option>
                     </select>
                 </div>
             </div>

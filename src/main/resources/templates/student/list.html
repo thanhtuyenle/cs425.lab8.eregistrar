@@ -79,7 +79,8 @@
                     <td><a th:href="@{'/eregistrar/student/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
                     <td>
                         <a data-toggle="modal" data-target="#confirmDeleteStudentModal"
-                           th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}">Delete</a>
+                           th:href="@{'/eregistrar/student/delete/{studentId}'(studentId=${student.studentId})}">Delete</a>
+<!--                           th:href="@{'/eregistrar/student/delete/{studentId}' + ${student.studentId}}">Delete</a>-->
 
                         <div class="modal fade" id="confirmDeleteStudentModal" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -96,7 +97,8 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                        <a th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}">
+<!--                                        <a th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}">-->
+                                        <a th:href="@{'/eregistrar/student/delete/{studentId}'(studentId=${student.studentId})}">
                                             <button type="button" class="btn btn-primary">Yes</button>
                                         </a>
                                     </div>
