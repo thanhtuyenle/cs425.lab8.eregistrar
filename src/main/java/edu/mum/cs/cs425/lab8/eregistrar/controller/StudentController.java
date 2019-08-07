@@ -3,6 +3,7 @@ package edu.mum.cs.cs425.lab8.eregistrar.controller;
 import edu.mum.cs.cs425.lab8.eregistrar.model.Student;
 import edu.mum.cs.cs425.lab8.eregistrar.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,9 @@ public class StudentController {
     @GetMapping(value = {"/eregistrar/student/list"})
     public ModelAndView listStudents(@RequestParam(defaultValue = "0") int pageno) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("students", studentService.getAllStudentsPaged(pageno));
+        Page<Student> students = studentService.getAllStudentsPaged(pageno);
+        modelAndView.addObject("students", students);
+        modelAndView.addObject("studentsCount", students.getSize());
         modelAndView.addObject("currentPageNo", pageno);
         modelAndView.setViewName("student/list");
         return modelAndView;
@@ -76,12 +79,16 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/eregistrar/student/search", method = RequestMethod.GET)
-    public ModelAndView showStudentsByFirst(@RequestParam(value = "firstName", required = false) String firstName, @RequestParam(defaultValue = "0") int pageno, Model model) {
+    public ModelAndView searchStudents(@RequestParam(value = "searchString", required = false) String searchString, @RequestParam(defaultValue = "0") int pageno, Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("students", studentService.listStudentsByFirstName(firstName, pageno));
+        Page<Student> students = studentService.searchStudents(searchString, pageno);
+        modelAndView.addObject("students", students);
+        modelAndView.addObject("searchString", searchString);
+        modelAndView.addObject("studentsCount", students.getContent().size());
         modelAndView.addObject("currentPageNo", pageno);
         modelAndView.setViewName("student/list");
         return modelAndView;
     }
+
 
 }

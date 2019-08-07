@@ -1,5 +1,6 @@
 package edu.mum.cs.cs425.lab8.eregistrar.model;
 
+import edu.mum.cs.cs425.lab8.eregistrar.model.validators.UniqueStudentNumber;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.context.annotation.SessionScope;
@@ -17,6 +18,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentId;
 
+    @UniqueStudentNumber
     @NotBlank(message = "*Student Number is required")
     @Column(name="studentNumber", nullable = false, unique = true)
     private String studentNumber;

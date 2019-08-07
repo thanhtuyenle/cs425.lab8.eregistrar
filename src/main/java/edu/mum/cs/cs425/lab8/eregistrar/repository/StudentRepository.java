@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
@@ -21,4 +22,11 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     @Query("Select s from Student s where s.firstName like %:firstName%")
     Page<Student> findStudentByFirstName(String firstName, Pageable pageable);
+
+    Page<Student> findAllByStudentNumberContainingOrFirstNameContainingOrMiddleNameContainingOrLastNameContaining
+            (String studentNumber, String firstName, String middleName, String lastName, Pageable pageable);
+
+    Page<Student> findAllByCgpaEquals(Double cgpa, Pageable pageable);
+    Page<Student> findAllByEnrollmentDate(LocalDate enrollmentDate, Pageable pageable);
+    Page<Student> findAllByIsInternational(String isInternational, Pageable pageable);
 }

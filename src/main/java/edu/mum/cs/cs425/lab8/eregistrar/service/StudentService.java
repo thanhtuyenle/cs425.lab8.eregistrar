@@ -20,6 +20,6 @@ public interface StudentService {
 
     public abstract Optional<Student> findByStudentNumber(String studentNumber);
 
-    public abstract Page<Student> listStudentsByFirstName(String firstName, int pageNo);
+    public abstract Page<Student> searchStudents(String searchString, int pageNo);
 
 }

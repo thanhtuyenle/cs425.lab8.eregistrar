@@ -4,15 +4,17 @@ package edu.mum.cs.cs425.lab8.eregistrar.service.impl;
 import edu.mum.cs.cs425.lab8.eregistrar.model.Student;
 import edu.mum.cs.cs425.lab8.eregistrar.repository.StudentRepository;
 import edu.mum.cs.cs425.lab8.eregistrar.service.StudentService;
+import org.apache.el.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
-import java.util.logging.Filter;
-import java.util.stream.Collectors;
 
 //@Service(value = "MainBookService")
 @Service
@@ -37,6 +39,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student saveStudent(Student student) {
+
         return repository.save(student);
     }
 
@@ -55,12 +58,59 @@ public class StudentServiceImpl implements StudentService {
         return repository.findStudentByStudentNumber(studentNumber);
     }
 
+//    @Override
+//    public Page<Student> searchStudents(String firstName, int pageNo) {
+//        if (firstName != null && firstName.isEmpty() == false) {
+//            return repository.findStudentByFirstName(firstName, PageRequest.of(pageNo, 3, Sort.by("firstName")));
+//        } else {
+//            return getAllStudentsPaged(pageNo);
+//        }
+//    }
+
     @Override
-    public Page<Student> listStudentsByFirstName(String firstName, int pageNo) {
-        if (firstName != null && firstName.isEmpty() == false) {
-            return repository.findStudentByFirstName(firstName, PageRequest.of(pageNo, 3, Sort.by("firstName")));
+    public Page<Student> searchStudents(String searchString, int pageNo) {
+
+        if(containsDecimalPoint(searchString) && isCGPA(searchString)) {
+            return repository.findAllByCgpaEquals(Double.parseDouble(searchString), PageRequest.of(pageNo, 3, Sort.by("studentNumber")));
+
+        } else if(isDate(searchString)) {
+            return repository.findAllByEnrollmentDate(LocalDate.parse(searchString, DateTimeFormatter.ISO_DATE), PageRequest.of(pageNo, 3, Sort.by("studentNumber")));
         } else {
-            return getAllStudentsPaged(pageNo);
+            return repository.findAllByStudentNumberContainingOrFirstNameContainingOrMiddleNameContainingOrLastNameContaining(searchString, searchString, searchString, searchString, PageRequest.of(pageNo, 3, Sort.by("studentNumber")));
         }
     }
+
+    private boolean isCGPA(String searchString) {
+        boolean isParseableAsMoney = false;
+        try {
+
+            Double.parseDouble(searchString);
+            isParseableAsMoney = true;
+        } catch(Exception ex) {
+            if(ex instanceof ParseException) {
+                isParseableAsMoney = false;
+
+
+            }
+        }
+        return isParseableAsMoney;
+    }
+
+    private boolean isDate(String searchString) {
+        boolean isParseableAsDate = false;
+        try {
+            LocalDate.parse(searchString, DateTimeFormatter.ISO_DATE);
+            isParseableAsDate = true;
+        } catch(Exception ex) {
+            if(ex instanceof DateTimeParseException) {
+                isParseableAsDate = false;
+            }
+        }
+        return isParseableAsDate;
+    }
+
+    private boolean containsDecimalPoint(String searchString) {
+        return searchString.contains(".");
+    }
+
 }

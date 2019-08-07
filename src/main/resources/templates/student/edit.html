@@ -48,6 +48,8 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="studentNumber">Student Number</label>
+                        <span th:if="${#fields.hasErrors('studentNumber')}" th:errors="*{studentNumber}"
+                              class="alert alert-danger" required="required"></span>
                         <input id="studentNumber" name="studentNumber" type="text" class="form-control"
                                th:value="${student.studentNumber}">
                     </div>
