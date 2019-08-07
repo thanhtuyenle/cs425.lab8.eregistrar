@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,27 +38,31 @@
 </nav>
 
 <div style="padding-top:1em;" class="container">
-    <h3>Welcome to the eRegistrar Students Management System (eLibBMS)</h3>
-    <hr/>
-    <div style="font-size: 1em">
-        <img th:src="@{/images/banner1.png}"/><br/><br/>
-        <p>We are a top-flight, fully-digitized library.
-            Find out more <a href="/eregistrar/about">about us</a> and
-            and learn how we can serve you with the widest variety of students and lots of other
-            digital content, all for your education as well as your entertainment.
-            You can also <a href="/eregistrar/virtualtour">take a virtual tour</a>,
-            of our world-class facilities and be amazed at all what we have in stock
-            for you, your family and friends.</p>
-        <p>To browse and manage the <a href="/eregistrar/student/list">catalogue of Students</a>, please first make sure to read
-            the
-            instructions and key points provided below. And then click the
-            appropriate menu item, located on the menu-bar above.<br/><br/>
+    <!--Thymeleaf placeholder for the page Content-->
+    <th:block layout:fragment="content">
+        <h3>Welcome to the eRegistrar Students Management System (eLibBMS)</h3>
+        <hr/>
+        <div style="font-size: 1em">
+            <img th:src="@{/images/banner1.png}"/><br/><br/>
+            <p>We are a top-flight, fully-digitized library.
+                Find out more <a href="/eregistrar/about">about us</a> and
+                and learn how we can serve you with the widest variety of students and lots of other
+                digital content, all for your education as well as your entertainment.
+                You can also <a href="/eregistrar/virtualtour">take a virtual tour</a>,
+                of our world-class facilities and be amazed at all what we have in stock
+                for you, your family and friends.</p>
+            <p>To browse and manage the <a href="/eregistrar/student/list">catalogue of Students</a>, please first make sure to read
+                the
+                instructions and key points provided below. And then click the
+                appropriate menu item, located on the menu-bar above.<br/><br/>
 
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen student.</p>
-    </div>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text
+                ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen student.</p>
+        </div>
+    </th:block>
+    <!--End placeholder-->
 </div>
 
 <footer class="footer">
@@ -67,17 +72,17 @@
     </div>
 </footer>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
+<!--&lt;!&ndash; Bootstrap core JavaScript-->
+<!--================================================== &ndash;&gt;-->
+<!--&lt;!&ndash; Placed at the end of the document so the pages load faster &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+<!--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"-->
+<!--        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"-->
+<!--        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"-->
+<!--        crossorigin="anonymous"></script>-->
 </body>
 </html>
