@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,152 +14,110 @@
     <title>eRegistrar - a demo spring boot webapp featuring CRUD - List Students</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a style="padding-right: 2em;" class="navbar-brand" href="/eregistrar/home">eRegistrar : : : a CRUD demo webapp</a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <th:block layout:fragment="content">
+        <div>
+            <span style="font-size: 2em; color: #32a5e7;">Students in our Collection</span><br/>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
-                <a class="nav-link" href="/eregistrar/student/list">Students</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <span style="color:#fff;padding-left: 2em; padding-right: 1em;">Welcome, Guest</span>
-            <a style="color: #ffffff; margin-right: 0em;" class="nav-link" href="#">Thanh Tuyen</a>
-            <!--                <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
-            <a href="#" class="btn btn-secondary">Sign In</a>
-        </form>
-    </div>
-</nav>
-
-<div style="margin-top:1em;margin-bottom:1em;" class="container">
-    <div>
-        <span style="font-size: 2em; color: #32a5e7;">Students in our Collection</span><br/>
-
-        <span style="float:right;">
-            <a class="btn btn-outline-success btn-lg" href="/eregistrar/student/new">Add New Student</a>
-        </span>
-    </div>
-    <!-- Search panel -->
-    <form id="searchStudentForm" method="get" action="/eregistrar/student/search">
-        <div style="margin-top:1em;" class="row">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Enter a string to search for students" th:value="${searchString}" autofocus />
-                    <div class="input-group-append">
-                        <button id="btnSubmit" type="submit" class="btn btn-outline-success">Search</button>
-                    </div>
-                </div>
-            </div>
+            <span style="float:right;">
+                <a class="btn btn-outline-success btn-lg" href="/eregistrar/student/new">Add New Student</a>
+            </span>
         </div>
-    </form>
-    <p>&nbsp;</p>
-    <div style="font-size: 1em">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Student Number</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Middle Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">CGPA</th>
-                <th scope="col">Enrollment Date</th>
-                <th scope="col">Is International</th>
-                <th scope="col">&nbsp;</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student,iterStat : ${students}">
-                <th scope="row" th:text="${iterStat.count}"></th>
-                <td th:text="${student.studentNumber}"></td>
-                <td th:text="${student.firstName}"></td>
-                <td th:text="${student.middleName}"></td>
-                <td th:text="${student.lastName}"></td>
-                <td th:text="${student.cgpa}"></td>
-                <td th:text="${student.enrollmentDate}"></td>
-                <td th:text="${student.isInternational}"></td>
-                <td></td>
-                <td><a th:href="@{'/eregistrar/student/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
-                <td>
-                    <a data-toggle="modal" data-target="#confirmDeleteStudentModal" th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}"
-                       th:attr="data-target='#confirmDeleteStudentModal'+${student.studentId}">
-                                        <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
-                                              data-placement="top" title="Delete"></span>Delete</a>
-                </td>
-
-                <!-- Modal -->
-                <!-- <div class="modal fade" id="confirmDeleteStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
-                <div class="modal fade confirmDeleteStudentModal" th:id="confirmDeleteStudentModal+${student.studentId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Delete</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you wish to delete this student data?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <a th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}">
-                                    <button type="button" class="btn btn-primary">Yes</button>
-                                </a>
-                            </div>
+        <!-- Search panel -->
+        <form id="searchStudentForm" method="get" action="/eregistrar/student/search">
+            <div style="margin-top:1em;" class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Enter a string to search for students" th:value="${searchString}" autofocus />
+                        <div class="input-group-append">
+                            <button id="btnSubmit" type="submit" class="btn btn-outline-success">Search</button>
                         </div>
                     </div>
                 </div>
-            </tr>
-            <tr th:if="${studentsCount < 1}">
-                <td colspan="8" th:align="center">No students found</td>
-            </tr>
-            </tbody>
-        </table>
+            </div>
+        </form>
+        <p>&nbsp;</p>
+        <div style="font-size: 1em">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Student Number</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">CGPA</th>
+                    <th scope="col">Enrollment Date</th>
+                    <th scope="col">Is International</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student,iterStat : ${students}">
+                    <th scope="row" th:text="${iterStat.count}"></th>
+                    <td th:text="${student.studentNumber}"></td>
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.middleName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td th:text="${student.cgpa}"></td>
+                    <td th:text="${student.enrollmentDate}"></td>
+                    <td th:text="${student.isInternational}"></td>
+                    <td></td>
+                    <td><a th:href="@{'/eregistrar/student/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
+                    <td>
+                        <a data-toggle="modal" data-target="#confirmDeleteStudentModal" th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}"
+                           th:attr="data-target='#confirmDeleteStudentModal'+${student.studentId}">
+                                            <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
+                                                  data-placement="top" title="Delete"></span>Delete</a>
+                    </td>
 
-        <!-- Pagination -->
-        <div>
-            <ul th:if="${studentsCount >= 1}" class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Pages: </a>
-                </li>
-                <li th:each="i : ${#numbers.sequence(1, students.totalPages)}"
-                    th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
-                    <a th:href="@{/eregistrar/student/list(pageno=${i-1})}"
-                       th:text="${i}" class="page-link"></a>
-                </li>
-            </ul>
+                    <!-- Modal -->
+                    <!-- <div class="modal fade" id="confirmDeleteStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
+                    <div class="modal fade confirmDeleteStudentModal" th:id="confirmDeleteStudentModal+${student.studentId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you wish to delete this student data?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <a th:href="@{'/eregistrar/student/delete/' + ${student.studentId}}">
+                                        <button type="button" class="btn btn-primary">Yes</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+                <tr th:if="${studentsCount < 1}">
+                    <td colspan="8" th:align="center">No students found</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div>
+                <ul th:if="${studentsCount >= 1}" class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Pages: </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, students.totalPages)}"
+                        th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
+                        <a th:href="@{/eregistrar/student/list(pageno=${i-1})}"
+                           th:text="${i}" class="page-link"></a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
+    </th:block>
 
-    </div>
-</div>
-
-
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">O. Kalu : : : CS425-SWE</span>
-        <span style="float:right;" class="text-muted">&copy; August 2019</span>
-    </div>
-</footer>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-        crossorigin="anonymous"></script>
 </body>
 </html>
